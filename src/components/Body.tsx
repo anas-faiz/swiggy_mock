@@ -1,7 +1,7 @@
 const Body = ()=>{
     return(
         <div>
-            <h1>alrighyt </h1>
+            <input type="search" name="" id="" />
         </div>
     )
 }
