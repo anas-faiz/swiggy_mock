@@ -1,3 +1,5 @@
+import { CiShoppingCart } from "react-icons/ci";
+
 const Header = ()=>{
   return (
     <div className="header">
@@ -8,8 +10,8 @@ const Header = ()=>{
       <div className="links">
         <h1>Home</h1>
         <h1>about</h1>
-        <h1>cart</h1>
-        <h1>login</h1>
+        <h1 className="cart"><CiShoppingCart size={50}/></h1>
+        <button>login</button>
       </div>
     </div>
   )

@@ -1,13 +1,13 @@
 /* index.css */
 * {
   margin: 0;
-  padding: 0;
+  padding: 5px;
   box-sizing: border-box;
 }
 
 body {
   font-family: 'Segoe UI', sans-serif;
-   background-color: #F0F8FF; /* Alice Blue */
+   background-color: lightblue; /* Alice Blue */
 
 }
 .header{
@@ -16,6 +16,9 @@ body {
     padding: 10px 20px;
     align-items: center;
     border: 1px solid
+}
+.body-container{
+    padding:25px;
 }
 .links{
     display: flex;
@@ -39,6 +42,35 @@ body {
 .logo img {
     width : 100px;
     height: 100px;
-    padding-right:22px
+    padding-right:22px;
 }
 
+.card-container{
+    display:flex;
+    flex-wrap:wrap;
+    margin-top:10px;
+    gap:10px;
+    
+}
+.card{
+    width:200px;
+    border-radius:10px;
+    box-shadowo:0 4px 8px rgba(0,0,0,0.15);
+    background:white;
+    overflow:hidden;  
+}
+.card img{
+    padding:2px;
+    height100px;
+    width:100%;
+    object-fit:cover;
+}
+.links h1{
+    cursor:pointer
+}
+.links button{
+    width:40px;
+    height:50px;
+    margin-top:20px;
+    cursor:pointer
+}
