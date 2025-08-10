@@ -1,6 +1,8 @@
+import { useState } from "react"
 import Card from  "./Card"
 
 const Body = ()=>{
+    let [title,setTitle] = useState([])
     return(
         <div className="body-container">
         <div className="Search-box">
