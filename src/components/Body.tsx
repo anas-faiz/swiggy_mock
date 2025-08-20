@@ -3,6 +3,8 @@ import Card from "./Card";
 
 const Body = () => {
   const [resInfo, setResInfo] = useState<any>(null);
+  const[searchbtn, setSearchbtn] = useState()
+  
   const api_key = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const Body = () => {
   const fetchData = async () => {
     const res = await fetch(api_key);
     const json = await res.json();
-    console.log(json)
+    //console.log(json)
     setResInfo(json);
   };
 
@@ -22,11 +24,18 @@ const Body = () => {
 
    // console.log (path);  
 
+   const handleSearch = ()=>{
+    setSearchbtn(event.target.value)
+    
+   }
+   const handleClick= ()=>{
+      
+   }
   return (
     <div className="body-container">
       <div className="Search-box">
-        <input type="search" />
-        <button>Search</button>
+        <input onChange={handleSearch} type="search" />
+        <button onClick={handleClick}>Search</button>
       </div>
 
       <div className="card-container">
