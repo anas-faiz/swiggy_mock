@@ -1,28 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Card from "./Card";
+import useRestaurants from "../hooks/useRestaurants"; // our custom hook
 
 const Body = () => {
-  const [resInfo, setResInfo] = useState<any>(null);
   const [searchbtn, setSearchbtn] = useState("");
+  const { restaurants, loading } = useRestaurants();
 
-  const api_key = import.meta.env.VITE_API_KEY;
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const res = await fetch(api_key);
-    const json = await res.json();
-    setResInfo(json);
-  };
-
-  const path =
-    resInfo?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle
-      ?.restaurants || [];
-
-  // ✅ Proper filtering
-  const filteredRestaurants = path.filter((r: any) => {
+  const filteredRestaurants = restaurants.filter((r: any) => {
     const search = searchbtn.toLowerCase();
     const name = r?.info?.name?.toLowerCase() || "";
     const description = r?.info?.cuisines?.join(", ").toLowerCase() || "";
@@ -39,6 +23,8 @@ const Body = () => {
           placeholder="Search restaurants..."
         />
       </div>
+
+      {loading && <p>Loading restaurants...</p>}
 
       <div className="card-container">
         {filteredRestaurants.map((item: any) => (
