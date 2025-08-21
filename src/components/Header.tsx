@@ -1,6 +1,11 @@
+import { useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 
 const Header = ()=>{
+  const [loginLogout,setLoginLogout] = useState(true)
+  const action = ()=>{
+     setLoginLogout(!loginLogout)
+  }
   return (
     <div className="header">
       <div className="logo">
@@ -12,7 +17,7 @@ const Header = ()=>{
         <h1>Dineout</h1>
         <h1>About</h1>
         <h1 className="cart"><CiShoppingCart size={50}/></h1>
-        <button>login</button>
+        <button onClick={action}>{loginLogout ? "logout" : "login"}</button>
       </div>
     </div>
   )
