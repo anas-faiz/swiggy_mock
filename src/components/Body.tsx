@@ -3,8 +3,8 @@ import Card from "./Card";
 
 const Body = () => {
   const [resInfo, setResInfo] = useState<any>(null);
-  const[searchbtn, setSearchbtn] = useState()
-  
+  const [searchbtn, setSearchbtn] = useState("");
+
   const api_key = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
@@ -14,7 +14,6 @@ const Body = () => {
   const fetchData = async () => {
     const res = await fetch(api_key);
     const json = await res.json();
-    //console.log(json)
     setResInfo(json);
   };
 
@@ -22,27 +21,30 @@ const Body = () => {
     resInfo?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle
       ?.restaurants || [];
 
-   // console.log (path);  
+  // ✅ Proper filtering
+  const filteredRestaurants = path.filter((r: any) => {
+    const search = searchbtn.toLowerCase();
+    const name = r?.info?.name?.toLowerCase() || "";
+    const description = r?.info?.cuisines?.join(", ").toLowerCase() || "";
 
-   const handleSearch = ()=>{
-    setSearchbtn(event.target.value)
-    
-   }
-   const handleClick= ()=>{
-      
-   }
+    return name.includes(search) || description.includes(search);
+  });
+
   return (
     <div className="body-container">
       <div className="Search-box">
-        <input onChange={handleSearch} type="search" />
-        <button onClick={handleClick}>Search</button>
+        <input
+          onChange={(e) => setSearchbtn(e.target.value)}
+          type="search"
+          placeholder="Search restaurants..."
+        />
       </div>
 
       <div className="card-container">
-        {path.map((item: any) => (
+        {filteredRestaurants.map((item: any) => (
           <Card
             key={item.info.id}
-            image= {item.info.cloudinaryImageId}
+            image={item.info.cloudinaryImageId}
             name={item.info.name}
             description={item.info.cuisines}
             price={item.info.costForTwo}

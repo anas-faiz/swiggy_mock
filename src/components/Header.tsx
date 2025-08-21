@@ -9,7 +9,8 @@ const Header = ()=>{
       </div>
       <div className="links">
         <h1>Home</h1>
-        <h1>about</h1>
+        <h1>Dineout</h1>
+        <h1>About</h1>
         <h1 className="cart"><CiShoppingCart size={50}/></h1>
         <button>login</button>
       </div>
