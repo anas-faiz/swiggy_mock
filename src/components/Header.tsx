@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const Header = ()=>{
   const [loginLogout,setLoginLogout] = useState(true)
@@ -14,7 +15,7 @@ const Header = ()=>{
       </div>
       <div className="links">
         <h1>Home</h1>
-        <h1>Dineout</h1>
+        <h1 >Dineout</h1>
         <h1>About</h1>
         <h1 className="cart"><CiShoppingCart size={50}/></h1>
         <button onClick={action}>{loginLogout ? "logout" : "login"}</button>
