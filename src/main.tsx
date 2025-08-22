@@ -6,7 +6,7 @@ import App from './App.tsx'
 import About from './components/About.tsx'
 import Dineout from './components/Dineout.jsx'
 import Body from './components/Body.tsx'
- 
+import Error from './components/Error.tsx' 
 
 const Routes = createBrowserRouter([
   {
@@ -15,6 +15,7 @@ const Routes = createBrowserRouter([
     children:[{
         index: true,
         element: <Body/>,
+        
     },
     {
     path:"/about",
@@ -25,7 +26,8 @@ const Routes = createBrowserRouter([
     element: <Dineout/>,
   },
   {
-    
+    path: "*",
+    element: <Error/>
   }
 
         
