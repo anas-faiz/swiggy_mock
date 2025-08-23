@@ -1,39 +1,69 @@
 import { useEffect, useState } from "react";
 
-const RestrauntMenu = ()=>{
+interface ItemCard {
+  card: {
+    info: {
+      id: string;
+      name: string;
+      price?: number;
+      defaultPrice?: number;
+    };
+  };
+}
 
-    const [ResMenu , setResMenu] = useState(null);
+const RestrauntMenu = () => {
+  const [resMenu, setResMenu] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-    const MenuApi = import.meta.env.VITE_RESTRAUNT_MENU_API
-    useEffect(()=>{
-        fetchData();
-   },[] )
-   
-   const fetchData = async()=>{
-        const data =  await fetch (MenuApi);
-        const json = await data.json();
+  const MenuApi = import.meta.env.VITE_RESTRAUNT_MENU_API;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(MenuApi);
+        const json = await res.json();
         console.log(json);
         setResMenu(json);
-   }
-   if (ResMenu == null ) return <h1>LOADING.....</h1>
+      } catch (error) {
+        console.error("Error fetching menu:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const {name,costForTwoMessage,cuisines,id} = ResMenu?.data?.cards[2]?.card?.card?.info 
-   const menu = ResMenu?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards
+    fetchData();
+  }, [MenuApi]);
 
-    return (
-        <div>
-            <h1>{name}</h1>
-            <h4>{cuisines.join(",")} - {costForTwoMessage} </h4>
-            
-            <h2>{name} Menu</h2>
-            <ul>
-                
-                {menu?.map((items : any)=><li key={items.card.info.id}>{items.card.info.name} - Rs {items.card.info.defaultPrice/100 || items.card.info.price/100}</li>)}                               
-                
-            </ul>
-        </div>
+  if (loading) return <h1>LOADING.....</h1>;
 
-    )
-}
- 
-export default RestrauntMenu ;
+  // ✅ safe destructuring with fallbacks
+  const info = resMenu?.data?.cards?.[2]?.card?.card?.info || {};
+  const menu: ItemCard[] =
+    resMenu?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[2]
+      ?.card?.card?.itemCards || [];
+
+  return (
+    <div>
+      <h1>{info.name}</h1>
+      <h4>
+        {(info.cuisines ?? []).join(", ")} - {info.costForTwoMessage}
+      </h4>
+
+      <h2>{info.name} Menu</h2>
+      <ul>
+        {menu.map((item) => {
+          const dish = item.card.info;
+          const price =
+            (dish.price ?? dish.defaultPrice ?? 0) / 100; // ✅ safe price handling
+          return (
+            <li key={dish.id}>
+              {dish.name} - ₹{price}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+export default RestrauntMenu;
