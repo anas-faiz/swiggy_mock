@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 
 const Header = ()=>{
   const [loginLogout,setLoginLogout] = useState(true)
+
   const action = ()=>{
      setLoginLogout(!loginLogout)
   }
+
   return (
     <div className="header">
       <div className="logo">
@@ -18,7 +20,7 @@ const Header = ()=>{
         <h1 ><Link to = "/dineout">Dineout</Link></h1>
           <Link to= "/about"><h1>About</h1></Link>
         <h1 className="cart"><CiShoppingCart size={50}/></h1>
-        <button onClick={action}>{loginLogout ? "logout" : "login"}</button>
+        <button onClick={action}>{loginLogout ? "login" : "logout"}</button>
       </div>
     </div>
   )
