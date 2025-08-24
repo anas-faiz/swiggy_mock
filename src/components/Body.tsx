@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "./Card";
 import useRestaurants from "../hooks/useRestaurants"; // our custom hook
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [searchbtn, setSearchbtn] = useState("");
@@ -28,14 +29,16 @@ const Body = () => {
 
       <div className="card-container">
         {filteredRestaurants.map((item: any) => (
-          <Card
-            key={item.info.id}
+          <Link key={item.info.id} 
+            to={`/restaurant/${item.info.id}`}>
+            <Card            
             image={item.info.cloudinaryImageId}
             name={item.info.name}
             description={item.info.cuisines}
             price={item.info.costForTwo}
             rating={item.info.avgRating}
           />
+          </Link>
         ))}
       </div>
     </div>

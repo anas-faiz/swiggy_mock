@@ -27,7 +27,7 @@ const Routes = createBrowserRouter([
     element: <Dineout/>,
   },
   {
-    path: "/restraunt/:resid",
+    path: "/restaurant/:resId",
     element:<RestrauntMenu/>
   },
   {

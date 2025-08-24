@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 interface ItemCard {
   card: {
@@ -17,10 +18,12 @@ const RestrauntMenu = () => {
 
   const MenuApi = import.meta.env.VITE_RESTRAUNT_MENU_API;
 
+  const { resId } = useParams();  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(MenuApi);
+        const res = await fetch(`${MenuApi}${resId}`);
         const json = await res.json();
         console.log(json);
         setResMenu(json);
