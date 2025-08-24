@@ -32,9 +32,7 @@ const Routes = createBrowserRouter([
   {
     path: "*",
     element: <Error/>
-  }
-
-        
+  }        
     ]
   },
   

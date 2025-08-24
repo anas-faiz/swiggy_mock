@@ -2,6 +2,7 @@ import { useState } from "react";
 import Card from "./Card";
 import useRestaurants from "../hooks/useRestaurants"; // our custom hook
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../hooks/useOnlineStatus";
 
 const Body = () => {
   const [searchbtn, setSearchbtn] = useState("");
@@ -14,6 +15,10 @@ const Body = () => {
 
     return name.includes(search) || description.includes(search);
   });
+
+    const  onlineStatus   = useOnlineStatus();
+
+    if(onlineStatus == false) return <h1>NO Internet conection detected</h1>
 
   return (
     <div className="body-container">
