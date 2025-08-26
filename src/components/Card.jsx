@@ -17,4 +17,14 @@ const Card = ({ name, description, price, rating, image }) => {
   );
 };
 
+
+ export const promotedRestaurantCard = (Card)=>{
+  return ((props)=>{
+    <>
+      <label>Promoted</label>
+      <Card {...props}/>
+    </>
+  })
+}
+
 export default Card

@@ -11,6 +11,7 @@ import Error from './components/Error.tsx'
 
 const About = lazy(()=>import("./components/About.tsx"))
 
+
 const Routes = createBrowserRouter([
   {
     path:"/",

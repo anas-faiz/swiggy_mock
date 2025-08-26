@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Card from "./Card";
+import Card, {promotedRestaurantCard} from "./Card";
 import useRestaurants from "../hooks/useRestaurants"; // our custom hook
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../hooks/useOnlineStatus";
@@ -20,6 +20,8 @@ const Body = () => {
 
     if(onlineStatus == false) return <h1>NO Internet conection detected</h1>
 
+  const PromotedRestaurant = promotedRestaurantCard(Card);
+
   return (
     <div className="body-container">
       <div className="Search-box">
@@ -36,13 +38,20 @@ const Body = () => {
         {filteredRestaurants.map((item: any) => (
           <Link key={item.info.id} 
             to={`/restaurant/${item.info.id}`}>
+            {item.info.promoted ? <PromotedRestaurant
+            image={item.info.cloudinaryImageId}
+            name={item.info.name}
+            description={item.info.cuisines}
+            price={item.info.costForTwo}
+            rating={item.info.avgRating}
+            /> : 
             <Card            
             image={item.info.cloudinaryImageId}
             name={item.info.name}
             description={item.info.cuisines}
             price={item.info.costForTwo}
             rating={item.info.avgRating}
-          />
+          />}
           </Link>
         ))}
       </div>
