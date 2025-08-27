@@ -15,19 +15,29 @@ const MenuCategory = ({ data }) => {
       <ul>
         {items.map((item) => {
           const dish = item?.card?.info;
-          if (!dish) return null;
 
-          const price = (dish.price ?? dish.defaultPrice ?? 0) / 100;
+          // Case 1: Nested category
+          if (item?.categories) {
+            return (
+              <MenuCategory key={item.title} data={item} />
+            );
+          }
 
-          return (
-            <li
-              key={dish.id}
-              className="flex justify-between items-center border-b pb-2 last:border-none"
-            >
-              <span className="text-gray-700 font-medium">{dish.name}</span>
-              <span className="text-gray-900 font-semibold">₹{price}</span>
-            </li>
-          );
+          // Case 2: Normal dish
+          if (dish) {
+            const price = (dish.price ?? dish.defaultPrice ?? 0) / 100;
+            return (
+              <li
+                key={dish.id}
+                className="flex justify-between items-center border-b pb-2 last:border-none"
+              >
+                <span className="text-gray-700 font-medium">{dish.name}</span>
+                <span className="text-gray-900 font-semibold">₹{price}</span>
+              </li>
+            );
+          }
+
+          return null;
         })}
       </ul>
     </div>
