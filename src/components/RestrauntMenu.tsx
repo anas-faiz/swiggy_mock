@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Shimmer from "./Shimmer";
 
 interface ItemCard {
   card: {
@@ -37,7 +38,7 @@ const RestrauntMenu = () => {
     fetchData();
   }, [MenuApi]);
 
-  if (loading) return <h1>LOADING.....</h1>;
+  if (loading) return <Shimmer/>;
 
   // ✅ safe destructuring with fallbacks
   const info = resMenu?.data?.cards?.[2]?.card?.card?.info || {};
@@ -46,26 +47,37 @@ const RestrauntMenu = () => {
       ?.card?.card?.itemCards || [];
 
   return (
-    <div>
-      <h1>{info.name}</h1>
-      <h4>
-        {(info.cuisines ?? []).join(", ")} - {info.costForTwoMessage}
-      </h4>
+    <div className="max-w-3xl mx-auto px-6 py-10 bg-white shadow-lg rounded-2xl">
+  {/* Restaurant Info */}
+  <h1 className="text-3xl font-bold text-gray-800 mb-2">{info.name}</h1>
+  <h4 className="text-gray-600 text-lg mb-6">
+    {(info.cuisines ?? []).join(", ")} • {info.costForTwoMessage}
+  </h4>
 
-      <h2>{info.name} Menu</h2>
-      <ul>
-        {menu.map((item) => {
-          const dish = item.card.info;
-          const price =
-            (dish.price ?? dish.defaultPrice ?? 0) / 100; // ✅ safe price handling
-          return (
-            <li key={dish.id}>
-              {dish.name} - ₹{price}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+  {/* Menu Title */}
+  <h2 className="text-2xl font-semibold text-orange-500 mb-4">
+    {info.name} Menu
+  </h2>
+
+  {/* Menu Items */}
+  <ul className="space-y-3">
+    {menu.map((item) => {
+      const dish = item.card.info;
+      const price = (dish.price ?? dish.defaultPrice ?? 0) / 100;
+
+      return (
+        <li
+          key={dish.id}
+          className="flex justify-between items-center border-b pb-2 last:border-none"
+        >
+          <span className="text-gray-700 font-medium">{dish.name}</span>
+          <span className="text-gray-900 font-semibold">₹{price}</span>
+        </li>
+      );
+    })}
+  </ul>
+</div>
+
   );
 };
 
