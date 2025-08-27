@@ -71,7 +71,7 @@ const RestrauntMenu = () => {
   </h2>
   {category.map((c)=>{
     return(
-      <MenuCategory data={c.card.card}/>
+      <MenuCategory data={c?.card?.card}/>
     )
   })}
 
