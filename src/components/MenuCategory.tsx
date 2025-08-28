@@ -1,45 +1,58 @@
-const MenuCategory = ({ data }) => {
-  console.log(data);
+import { useState } from "react";
 
-  const items = data?.itemCards || data?.categories || [];
+const MenuCategory = ({ data }) => {
+  const [open, setOpen] = useState(false);
+  const isLeaf = Array.isArray(data?.itemCards);
 
   return (
-    <div>
-      <div className="flex justify-between mb-4 shadow-md p-2">
-        <h4 className="text-2xl ">
-          {data?.title} ({items.length})
+    <div className="mb-4 border rounded-lg shadow-sm">
+      {/* Header */}
+      <div
+        className="flex justify-between items-center px-4 py-3 bg-gray-100 cursor-pointer"
+        onClick={() => setOpen(!open)}
+      >
+        <h4 className="text-lg font-semibold text-gray-800">
+          {data?.title} (
+          {isLeaf ? (data?.itemCards?.length ?? 0) : (data?.categories?.length ?? 0)})
         </h4>
-        <span>^</span>
+        <span
+          className={`transform transition-transform duration-300 ${
+            open ? "rotate-180" : "rotate-0"
+          }`}
+        >
+          ▼
+        </span>
       </div>
 
-      <ul>
-        {items.map((item) => {
-          const dish = item?.card?.info;
-
-          // Case 1: Nested category
-          if (item?.categories) {
-            return (
-              <MenuCategory key={item.title} data={item} />
-            );
-          }
-
-          // Case 2: Normal dish
-          if (dish) {
-            const price = (dish.price ?? dish.defaultPrice ?? 0) / 100;
-            return (
-              <li
-                key={dish.id}
-                className="flex justify-between items-center border-b pb-2 last:border-none"
-              >
-                <span className="text-gray-700 font-medium">{dish.name}</span>
-                <span className="text-gray-900 font-semibold">₹{price}</span>
-              </li>
-            );
-          }
-
-          return null;
-        })}
-      </ul>
+      {/* Body */}
+      {open && (
+        <div className="px-4 py-3 bg-white">
+          {isLeaf ? (
+            <ul className="space-y-2">
+              {data.itemCards.map((it) => {
+                const dish = it?.card?.info;
+                if (!dish) return null;
+                const price = ((dish.price ?? dish.defaultPrice ?? 0) / 100).toFixed(2);
+                return (
+                  <li
+                    key={dish.id}
+                    className="flex justify-between items-center border-b pb-2 last:border-none"
+                  >
+                    <span className="text-gray-700">{dish.name}</span>
+                    <span className="font-semibold">₹{price}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <div className="space-y-3">
+              {(data?.categories ?? []).map((sub) => (
+                <MenuCategory key={sub.title} data={sub} />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
