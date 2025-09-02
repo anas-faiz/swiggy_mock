@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 const MenuCategory = ({ data }) => {
+  const image_api = import.meta.env.VITE_IMAGE_KEY;
+  
   const [open, setOpen] = useState(false);
   const isLeaf = Array.isArray(data?.itemCards);
-  const image_api = import.meta.env.VITE_IMAGE_KEY;
+  
 
   return (
     <div className="mb-4 border-b rounded-xl shadow-sm overflow-hidden">
