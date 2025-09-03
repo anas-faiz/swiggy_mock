@@ -2,10 +2,9 @@ import { useState } from "react";
 
 const MenuCategory = ({ data }) => {
   const image_api = import.meta.env.VITE_IMAGE_KEY;
-  
+
   const [open, setOpen] = useState(false);
   const isLeaf = Array.isArray(data?.itemCards);
-  
 
   return (
     <div className="mb-4 border-b rounded-xl shadow-sm overflow-hidden">
@@ -44,10 +43,7 @@ const MenuCategory = ({ data }) => {
                 ).toFixed(2);
 
                 return (
-                  <div
-                    key={dish.id}
-                    className="border-b pb-4 last:border-none"
-                  >
+                  <div key={dish.id} className="border-b pb-4 last:border-none">
                     <div className="flex justify-between items-start gap-4">
                       {/* Left content */}
                       <div className="flex-1">

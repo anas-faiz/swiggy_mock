@@ -27,7 +27,7 @@ const RestrauntMenu = () => {
       try {
         const res = await fetch(`${MenuApi}${resId}`);
         const json = await res.json();
-        console.log(json);
+        //console.log(json);
         setResMenu(json);
       } catch (error) {
         console.error("Error fetching menu:", error);
@@ -37,7 +37,7 @@ const RestrauntMenu = () => {
     };
 
     fetchData();
-  }, [MenuApi]);
+  }, []);
 
   
 

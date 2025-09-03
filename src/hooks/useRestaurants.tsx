@@ -26,7 +26,7 @@ const useRestaurants = () => {
     };
 
     fetchData();
-  }, [api_key]);
+  }, []);
 
   return { restaurants, loading };
 };
