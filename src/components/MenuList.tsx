@@ -1,6 +1,15 @@
+import { useDispatch } from "react-redux";
+import {addItem} from "../store/CartSlice"
 const MenuList = ({ data }) => {
 
     const image_api = import.meta.env.VITE_IMAGE_KEY;
+    const dispatch = useDispatch();
+
+    const handleClick = (dish)=>{
+      
+      dispatch(addItem(dish))
+    
+    }
 
   return (
     <div className="space-y-4">
@@ -35,7 +44,7 @@ const MenuList = ({ data }) => {
                   src={`${image_api}${dish.imageId}`}
                   alt={dish.name}
                 />
-                <button className="absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-amber-800 text-white text-xs px-1 py-0.5 rounded shadow hover:bg-green-700 transition">
+                <button onClick={()=>handleClick(dish)} className="absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-amber-800 text-white text-xs px-1 py-0.5 rounded shadow hover:bg-green-700 transition">
                   ADD +
                 </button>
               </div>

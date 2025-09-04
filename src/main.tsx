@@ -7,6 +7,7 @@ import App from './App.tsx'
 import Dineout from './components/Dineout.jsx'
 import Body from './components/Body.tsx'
 import RestrauntMenu from './components/RestrauntMenu.tsx'
+import Cart from './components/Cart.tsx'
 import Error from './components/Error.tsx' 
 
 const About = lazy(()=>import("./components/About.tsx"))
@@ -32,6 +33,10 @@ const Routes = createBrowserRouter([
   {
     path: "/restaurant/:resId",
     element:<RestrauntMenu/>
+  },
+  {
+    path:"/cart",
+    element:<Cart/>
   },
   {
     path: "*",

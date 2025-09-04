@@ -2,16 +2,21 @@ import { useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../hooks/useOnlineStatus.tsx";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const app_logo = import.meta.env.VITE_LOGO;
+  const onlineStatus = useOnlineStatus();
+  
+  const cartItems = useSelector((state)=>state.cart.items)
+
   const [loginLogout, setLoginLogout] = useState(true);
 
   const action = () => {
     setLoginLogout(!loginLogout);
   };
-  const app_logo = import.meta.env.VITE_LOGO;
 
-  const onlineStatus = useOnlineStatus();
+
 
   return (
     <div className="header flex justify-between items-center bg-white shadow-md px-8 py-4 rounded-xl m-6">
@@ -45,11 +50,11 @@ const Header = () => {
           About
         </Link>
 
-        <Link>
+        <Link to={"/cart"}>
           <CiShoppingCart
             size={28}
             className="text-gray-700 hover:text-blue-500 transition-colors"
-          />
+          />{cartItems.length}
         </Link>
 
         <button
