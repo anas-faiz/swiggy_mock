@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useRestaurants = () => {
-  const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [restaurants, setRestaurants] = useState ([]);
   const [loading, setLoading] = useState(false);
 
   const api_key = import.meta.env.VITE_API_KEY;

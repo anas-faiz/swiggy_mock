@@ -2,7 +2,7 @@ const Card = ({ name, description, price, rating, image }) => {
   const imageapi = import.meta.env.VITE_IMAGE_KEY;
 
   return (
-    <div className="card w-72 bg-white rounded-xl shadow-md overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-lg">
+    <div className="card w-72 bg-white rounded-xl shadow-md overflow-hidden transition-transform transform hover:-translate-y-3 hover:shadow-xl">
       <img
         src={imageapi + image}
         alt={name}
