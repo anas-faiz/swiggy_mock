@@ -2,8 +2,6 @@ import MenuList from "./MenuList";
 import { useState } from "react";
 
 const MenuCategory = ({ data }) => {
-  
-
   const [open, setOpen] = useState(false);
   const isLeaf = Array.isArray(data?.itemCards);
 
@@ -34,7 +32,7 @@ const MenuCategory = ({ data }) => {
       {open && (
         <div className="px-4 py-3 bg-white">
           {isLeaf ? (
-            <MenuList data = {data}/>
+            <MenuList data={data} />
           ) : (
             <div className="space-y-3">
               {(data?.categories ?? []).map((sub) => (

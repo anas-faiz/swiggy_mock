@@ -4,7 +4,6 @@ import useRestaurants from "../hooks/useRestaurants"; // our custom hook
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../hooks/useOnlineStatus";
 import Shimmer from "./Shimmer";
-
 const Body = () => {
   const [searchbtn, setSearchbtn] = useState("");
   const { restaurants, loading } = useRestaurants();
