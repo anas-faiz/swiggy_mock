@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem } from "../store/cartSlice"; // ✅ make sure removeItem exists in your slice
+import { removeItem } from "../store/CartSlice"; // ✅ make sure removeItem exists in your slice
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
