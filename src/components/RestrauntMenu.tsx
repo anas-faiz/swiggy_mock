@@ -22,22 +22,25 @@ const RestrauntMenu = () => {
 
   const { resId } = useParams();  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${MenuApi}${resId}`);
-        const json = await res.json();
-        //console.log(json);
-        setResMenu(json);
-      } catch (error) {
-        console.error("Error fetching menu:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`${MenuApi}${resId}`);
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+      
+      const data = await res.json();
+      setResMenu(data);
+      console.log("Fetched Menu:", data);
+    } catch (error) {
+      console.error("Error fetching menu:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, []);
+  fetchData();
+}, [MenuApi, resId]);
+
 
   
 
@@ -74,7 +77,6 @@ const RestrauntMenu = () => {
       <MenuCategory key={c?.card?.card?.title} data={c?.card?.card}/>
     )
   })}
-
   </div>
   
 
