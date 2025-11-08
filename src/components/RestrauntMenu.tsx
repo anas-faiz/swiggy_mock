@@ -26,6 +26,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const res = await fetch(`${MenuApi}${resId}`);
+
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       
       const data = await res.json();

@@ -1,35 +1,35 @@
 import express from "express";
-import fetch from "node-fetch";
 import cors from "cors";
+import puppeteer from "puppeteer";
 
 const app = express();
 app.use(cors());
 
 app.get("/api/menu/:resId", async (req, res) => {
   const { resId } = req.params;
-
   const apiUrl = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=25.6039168&lng=85.1360248&restaurantId=${resId}`;
 
   try {
-    const response = await fetch(apiUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
-        "accept": "application/json",
-      },
-    });
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(apiUrl, { waitUntil: "networkidle2" });
+    const content = await page.content(); // get full HTML
 
-    if (!response.ok) {
-      throw new Error(`Swiggy API error: ${response.status}`);
+    // extract JSON if present
+    const jsonMatch = content.match(/\{.*\}/s);
+    if (jsonMatch) {
+      const jsonData = JSON.parse(jsonMatch[0]);
+      res.json(jsonData);
+    } else {
+      res.status(500).json({ error: "No JSON found in Swiggy response" });
     }
 
-    const data = await response.json();
-    res.json(data);
+    await browser.close();
   } catch (error) {
-    console.error("Proxy error:", error);
-    res.status(500).json({ error: "Failed to fetch menu" });
+    console.error("🔥 Puppeteer error:", error);
+    res.status(500).json({ error: error.message });
   }
 });
 
 const PORT = 5000;
-app.listen(PORT, () => console.log(`✅ Proxy running on port ${PORT}`));
+app.listen(PORT, () => console.log(`✅ Puppeteer proxy running on port ${PORT}`));
