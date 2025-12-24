@@ -1,4 +1,5 @@
 const Card = ({ name, description, price, rating, image }) => {
+
   const imageapi = import.meta.env.VITE_IMAGE_KEY;
 
   return (

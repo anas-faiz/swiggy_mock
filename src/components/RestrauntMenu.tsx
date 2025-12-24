@@ -15,7 +15,7 @@ interface ItemCard {
 }
 
 const RestrauntMenu = () => {
-  const [resMenu, setResMenu] = useState<any>(null);
+  const [resMenu, setResMenu] = useState<ItemCard>();
   const [loading, setLoading] = useState(true);
 
   const MenuApi = import.meta.env.VITE_RESTRAUNT_MENU_API;
@@ -26,24 +26,22 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const res = await fetch(`${MenuApi}${resId}`);
-
-      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       
       const data = await res.json();
+
       setResMenu(data);
-      console.log("Fetched Menu:", data);
+      
     } catch (error) {
+
       console.error("Error fetching menu:", error);
+
     } finally {
       setLoading(false);
     }
   };
 
   fetchData();
-}, [MenuApi, resId]);
-
-
-  
+}, [MenuApi, resId]);  
 
   if (loading) return <Shimmer/>;
 
@@ -78,8 +76,7 @@ useEffect(() => {
       <MenuCategory key={c?.card?.card?.title} data={c?.card?.card}/>
     )
   })}
-  </div>
-  
+  </div> 
 
   );
 };
